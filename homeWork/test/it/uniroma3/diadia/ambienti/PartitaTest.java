@@ -8,34 +8,47 @@ import org.junit.Test;
 import it.uniroma3.diadia.Partita;
 
 public class PartitaTest {
-
+	
 	private Partita partitaTest;
-	private Stanza stanzaVincente;
-
+	
 	@Before
-	public void test() {
-
+	public void setUp() {
 		this.partitaTest = new Partita();
-		Stanza stanzaVincente = new Stanza("stanza vincente");
-		partitaTest.getLabirinto().setStanzaVincente(stanzaVincente);
-
 	}
-
 
 	@Test
 	public void testVinta() {
-		
-		assertTrue(partitaTest.vinta());
+		this.partitaTest.setStanzaCorrente(this.partitaTest.getLabirinto().getStanzaVincente());
+		assertTrue(this.partitaTest.vinta());
 	}
+	
+	@Test
+	public void testVintaSeStanzaCorrenteDiversaDaVincente() {
+		this.partitaTest.setStanzaCorrente(new Stanza("N1"));
+		assertFalse(this.partitaTest.vinta());
+	}
+	
+	@Test
+	public void testVintaSeAppenaIniziata() {
+		assertFalse(this.partitaTest.vinta());
+	}
+	
 
 	@Test
-	public void testIsFinita() {
-		fail("Not yet implemented");
+	public void testIsFinitaSeCfuTerminati() {
+		this.partitaTest.getGiocatore().setCfu(0);
+		assertTrue(this.partitaTest.isFinita());
 	}
-
+	
 	@Test
-	public void testGetStanzaCorrente() {
-		fail("Not yet implemented");
+	public void testIsFinitaSeVinta() {
+		this.partitaTest.setStanzaCorrente(this.partitaTest.getLabirinto().getStanzaVincente());		
+		assertTrue(this.partitaTest.isFinita());
 	}
-
+	
+	@Test
+	public void testIsFinitaSeAppenaIniziata() {
+		assertFalse(this.partitaTest.isFinita());
+	}
+	
 }
