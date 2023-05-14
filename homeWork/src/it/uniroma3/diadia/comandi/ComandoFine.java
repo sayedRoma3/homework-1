@@ -1,21 +1,23 @@
 package it.uniroma3.diadia.comandi;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoGuarda implements Comando {
-
-	private String nome = "Guarda";
+public class ComandoFine implements Comando {
+	
+	private IO io;
+	private String nome = "Fine";
+	
 
 	@Override
 	public void esegui(Partita partita) {
-		partita.getIo().mostraMessaggio("Stanza corrente: " + partita.getStanzaCorrente().toString());	
-		partita.getIo().mostraMessaggio("" + partita.getGiocatore().getBorsa().toString());
-		partita.getIo().mostraMessaggio("Cfu rimasti: " + partita.getGiocatore().getCfu());
-	}
+			partita.setFinita();
+			partita.getIo().mostraMessaggio("Grazie di aver giocato!");  // si desidera smettere
+		}
 
 	@Override
 	public void setParametro(String parametro) {
 		//non ha parametri
-
+		
 	}
 
 	@Override
@@ -28,5 +30,5 @@ public class ComandoGuarda implements Comando {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
+
